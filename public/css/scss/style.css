@@ -97,7 +97,7 @@ button:disabled {
 }
 
 .chat__sidebar {
-  /* overflow-y: scroll; */
+  overflow-y: scroll;
   width: 260px;
   height: 100vh;
   background: linear-gradient(325deg, #276b82 0, #315481 100%);
@@ -111,7 +111,7 @@ button:disabled {
 
 .chat__sidebar h3 {
   color: #e6eaee;
-  margin: 10px 45px;
+  margin: 10px 20px;
   text-align: left;
 }
 
@@ -210,7 +210,7 @@ button:disabled {
   .chat__footer button {
     margin-right: 3px;
   }
-  .chat__footer #send-location{
+  .chat__footer #send-location {
     margin-left: 3px;
   }
 }

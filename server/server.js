@@ -5,22 +5,37 @@ const socketIO = require('socket.io');
 
 // define variable
 var app = express();
-var {generateMessage, generateLocationMessage} = require('./utils/mesage');
+var {
+    generateMessage,
+    generateLocationMessage
+} = require('./utils/mesage');
+var {
+    isRealString
+} = require('./utils/validation');
 var server = http.createServer(app); // create server for app
 var io = socketIO(server); // init server for socket.io in emitting and listening
 io.on('connection', (socket) => {
 
-    socket.emit('newMessage', generateMessage('Admin', 'Welcome to Chat App'));
+    socket.on('joinRoom', (roomInfo, callback) => {
+        if (!isRealString(roomInfo.name) || !isRealString(roomInfo.room)) {
+            callback("Name and room name is required");
+        }
 
-    socket.broadcast.emit('newMessage', generateMessage('Admin', 'New User joined Chat Room'));
+        socket.join(roomInfo.room);
+        socket.emit('newMessage', generateMessage('BOT', 'Welcome to Chat App'));
+        socket.broadcast.to(roomInfo.room).emit('newMessage', generateMessage('Admin', `${roomInfo.name} has joined.`));
+        callback();
+
+    })
+
 
     socket.on('createMessage', (message, callback) => {
         io.emit('newMessage', generateMessage(message.from, message.text));
-        callback("Data from Server");
+        callback();
     });
 
     socket.on('createLocationMessage', ((coords) => {
-        io.emit('newLocationMessage', generateLocationMessage('Admin', coords.latitude, coords.longitude));
+        io.emit('newLocationMessage', generateLocationMessage('BOT', coords.latitude, coords.longitude));
     }))
 
     socket.on('disconnect', () => {
@@ -39,6 +54,3 @@ const publicPath = path.join(__dirname, '../public');
 
 //Middleware
 app.use(express.static(publicPath));
-
-
-
