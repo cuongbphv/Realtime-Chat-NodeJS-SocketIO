@@ -3,19 +3,20 @@ const http = require('http');
 const express = require('express');
 const socketIO = require('socket.io');
 
-// define app ExpressJS
+// define variable
 var app = express();
+var {generateMessage} = require('./utils/mesage');
 var server = http.createServer(app); // create server for app
 var io = socketIO(server); // init server for socket.io in emitting and listening
 io.on('connection', (socket) => {
     console.log('New User connected');
+
+    socket.emit('newMessage', generateMessage('Admin', 'Welcome to Chat App'));
+
+    socket.broadcast.emit('newMessage', generateMessage('Admin', 'New User joined Chat Room'));
     
     socket.on('createMessage', (message) => {
-        io.emit('newMessage', {
-            from: message.from,
-            text: message.text,
-            createdAt: new Date().getTime()
-        })
+        io.emit('newMessage', generateMessage(message.from, message.text));
     });
 
     socket.on('disconnect', () => {

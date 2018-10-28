@@ -5,13 +5,18 @@
   "main": "app.js",
   "scripts": {
     "start": "node server/server.js",
-    "test": "Echo \"Error: no test specified\" &$ exit 1"
+    "test": "mocha server/**/*.test.js",
+    "test-watch": "nodemon --exec yarn test"
   },
   "author": "Bui Phan Viet Cuong",
   "license": "MIT",
   "dependencies": {
     "express": "^4.16.4",
-    "nodemon": "^1.18.5",
     "socket.io": "^2.1.1"
+  },
+  "devDependencies": {
+    "expect": "^23.6.0",
+    "mocha": "^5.2.0",
+    "nodemon": "^1.18.5"
   }
 }
