@@ -7,31 +7,44 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Real-time Chat Application</title>
     <link rel="stylesheet" href="./css/libs/materialize.min.css" />
+    <link rel="stylesheet" href="./css/style.css">
 </head>
 
 <body>
 
     <div class="row">
-        <ul id="listMessage" class="collection">
 
-        </ul>
-    </div>
+        <div class="col s3">
+            <!-- Grey navigation panel -->
+        </div>
 
-    <div class="row">
-        <form id="formMessage" class="col s12">
+        <div class="col s9">
             <div class="row">
-                <div class="input-field col s10">
-                    <input placeholder="Placeholder" name="message" id="message" type="text" class="validate">
-                    <label for="message">First Name</label>
-                </div>
-                <div class="input-field col s2">
-                    <button class="btn waves-effect waves-light" type="submit" name="action">Submit</button>
+                <ul id="listMessage" class="collection">
+
+                </ul>
+            </div>
+
+            <div class="row">
+                <form id="formMessage" class="col s12">
+                    <div class="row">
+                        <div class="input-field">
+                            <input placeholder="Placeholder" name="message" id="message" type="text" class="validate">
+                            <label for="message">First Name</label>
+                        </div>
+                    </div>
+
+                    <div class="col s2">
+                        <button class="btn waves-effect waves-light" type="submit" name="sendMessage">Submit</button>
+                    </div>
+                </form>
+                <div class="col s3">
+                    <button class="btn waves-effect waves-light" id="sendLocation">Send Location</button>
                 </div>
             </div>
-        </form>
+        </div>
+
     </div>
-
-
 
 
     <script src="/socket.io/socket.io.js"></script>
