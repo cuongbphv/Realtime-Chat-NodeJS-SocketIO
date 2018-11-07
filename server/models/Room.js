@@ -7,6 +7,10 @@ const RoomSchema = new Schema({
     roomName: {
         type: String,
         required: true
+    },
+    description: {
+        type: String,
+        required: false
     }
 });
 
